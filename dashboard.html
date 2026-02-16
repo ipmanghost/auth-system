@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2 id="welcomeText"></h2>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+const user = localStorage.getItem("sessionUser");
+
+if (!user) {
+    window.location.href = "index.html";
+}
+
+document.getElementById("welcomeText").innerText = "Welcome, " + user;
+
+function logout() {
+    localStorage.removeItem("sessionUser");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
