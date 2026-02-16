@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
 <title>Authentication System</title>
 
 <style>
-/* ================== GLOBAL STYLES ================== */
 * {
     margin: 0;
     padding: 0;
@@ -88,7 +86,17 @@ button.google {
     font-size: 14px;
 }
 
-/* Fade animation */
+.forgot {
+    text-align: right;
+    margin-top: 5px;
+}
+
+.forgot a {
+    color: white;
+    font-size: 13px;
+    text-decoration: none;
+}
+
 @keyframes fadeIn {
     from {opacity: 0; transform: scale(0.95);}
     to {opacity: 1; transform: scale(1);}
@@ -116,10 +124,17 @@ button.google {
     <!-- LOGIN FORM -->
     <form id="loginForm" class="active">
         <h2>Login</h2>
+
         <input type="text" id="loginUsername" placeholder="Username" required>
         <input type="password" id="loginPassword" placeholder="Password" required>
+
+        <div class="forgot">
+            <a href="reset.html">Forgot Password?</a>
+        </div>
+
         <button type="submit">Login</button>
         <button type="button" class="google">Login with Google</button>
+
         <div class="toggle" onclick="showSignup()">Don't have an account? Sign Up</div>
         <div class="message" id="loginMessage"></div>
     </form>
@@ -127,11 +142,14 @@ button.google {
     <!-- SIGNUP FORM -->
     <form id="signupForm">
         <h2>Sign Up</h2>
+
         <input type="text" id="signupUsername" placeholder="Username" required>
         <input type="email" id="signupEmail" placeholder="Email" required>
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" required>
+
         <button type="submit">Sign Up</button>
         <button type="button" class="google">Sign Up with Google</button>
+
         <div class="toggle" onclick="showLogin()">Already have an account? Login</div>
         <div class="message" id="signupMessage"></div>
     </form>
@@ -139,7 +157,6 @@ button.google {
 </div>
 
 <script>
-// ================== FORM TOGGLE ==================
 function showSignup() {
     const login = document.getElementById("loginForm");
     const signup = document.getElementById("signupForm");
@@ -160,12 +177,11 @@ function showLogin() {
     }, 400);
 }
 
-// ================== VALIDATION ==================
 function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
 }
 
-// ================== SIGN UP ==================
+// SIGN UP
 document.getElementById("signupForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -201,7 +217,7 @@ document.getElementById("signupForm").addEventListener("submit", function(e) {
     window.location.href = "dashboard.html";
 });
 
-// ================== LOGIN ==================
+// LOGIN
 document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
