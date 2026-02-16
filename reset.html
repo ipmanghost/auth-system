@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset Password</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.container {
+    width: 95%;
+    max-width: 400px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: yellow;
+}
+
+.back {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.back a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Reset Password</h2>
+
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="email" id="email" placeholder="Registered Email" required>
+    <input type="password" id="newPassword" placeholder="New Password (min 6 chars)" required>
+
+    <button onclick="resetPassword()">Reset Password</button>
+
+    <div class="message" id="message"></div>
+
+    <div class="back">
+        <a href="index.html">Back to Login</a>
+    </div>
+</div>
+
+<script>
+function resetPassword() {
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const newPassword = document.getElementById("newPassword").value.trim();
+    const message = document.getElementById("message");
+
+    if (!username || !email || !newPassword) {
+        message.innerText = "All fields are required.";
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        message.innerText = "Password must be at least 6 characters.";
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const userIndex = users.findIndex(
+        user => user.username === username && user.email === email
+    );
+
+    if (userIndex === -1) {
+        message.innerText = "Username and Email do not match.";
+        return;
+    }
+
+    users[userIndex].password = newPassword;
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    message.style.color = "lightgreen";
+    message.innerText = "Password updated successfully! Redirecting...";
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
